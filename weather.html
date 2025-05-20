@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>Dashboard Cuaca</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body class="p-5">
-  <h1 class="text-2xl font-bold mb-4">Cuaca di Kota Bharu</h1>
-  <canvas id="weatherChart" class="mb-4"></canvas>
+<body class="p-5 bg-blue-50 min-h-screen">
+  <h1 class="text-2xl font-bold mb-4 text-gray-800">Cuaca di Kota Bharu</h1>
+  <div id="infoCuaca" class="text-lg text-gray-700 mb-4"></div>
+  <canvas id="weatherChart" class="bg-white p-4 rounded shadow-md"></canvas>
+
   <script src="weather.js"></script>
 </body>
 </html>
+
