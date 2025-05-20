@@ -1,14 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>Fatihah's Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body class="bg-gray-100 text-center p-10">
-  <img src="https://via.placeholder.com/150" class="rounded-full w-40 mx-auto mb-4" alt="My Photo">
-  <h1 class="text-2xl font-bold">Nurfatihah</h1>
-  <p class="text-sm mb-6">Pelajar Sains Komputer (Komputeran Internet), UniSZA</p>
-  <a href="weather.html" class="block bg-blue-500 text-white p-3 rounded m-2">Dashboard Cuaca</a>
-  <a href="crypto.html" class="block bg-green-500 text-white p-3 rounded m-2">Dashboard Crypto</a>
+<body class="bg-gray-100 text-center p-6 min-h-screen flex flex-col justify-between">
+
+  <div>
+    <img src="https://via.placeholder.com/150" class="rounded-full w-32 mx-auto mb-4 shadow-md" alt="My Photo">
+    <h1 class="text-2xl font-bold text-gray-800">Nurfatihah</h1>
+    <p class="text-sm text-gray-600 mb-6">Pelajar Sains Komputer (Komputeran Internet), UniSZA</p>
+
+    <div class="grid gap-4 max-w-sm mx-auto">
+      <a href="weather.html" class="bg-blue-500 hover:bg-blue-600 text-white py-3 rounded shadow">Dashboard Cuaca</a>
+      <a href="crypto.html" class="bg-green-500 hover:bg-green-600 text-white py-3 rounded shadow">Dashboard Crypto</a>
+    </div>
+  </div>
+
+  <footer class="text-xs text-gray-500 mt-10">
+    © 2025 Nurfatihah - Projek Dashboard API | UniSZA
+  </footer>
 </body>
 </html>
