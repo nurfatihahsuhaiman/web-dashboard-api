@@ -6,11 +6,25 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body class="p-5 bg-gray-100 min-h-screen">
-  <h1 class="text-2xl font-bold mb-4 text-gray-800">Live Crypto Prices</h1>
-  
-  <div id="cryptoData" class="text-gray-700 mb-4"></div>
-  
+<body class="p-5 bg-pink-50 min-h-screen">
+  <h1 class="text-2xl font-bold mb-4 text-pink-800 text-center">Live Cryptocurrency Prices</h1>
+
+  <!-- Dropdown pilihan coin -->
+  <div class="mb-4 text-center">
+    <label for="coinSelect" class="text-pink-700 font-medium">Choose Cryptocurrency:</label>
+    <select id="coinSelect" class="border border-pink-300 rounded px-3 py-1 ml-2">
+      <option value="bitcoin">Bitcoin (BTC)</option>
+      <option value="ethereum">Ethereum (ETH)</option>
+      <option value="solana">Solana (SOL)</option>
+      <option value="dogecoin">Dogecoin (DOGE)</option>
+      <option value="cardano">Cardano (ADA)</option>
+    </select>
+  </div>
+
+  <!-- Data coin -->
+  <div id="cryptoData" class="text-center text-pink-700 mb-4"></div>
+
+  <!-- Carta coin -->
   <canvas id="cryptoChart" class="bg-white p-4 rounded shadow-md"></canvas>
 
   <script src="crypto.js"></script>
