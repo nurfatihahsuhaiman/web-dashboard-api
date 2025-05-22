@@ -1,16 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Weather Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body class="p-5 bg-blue-50 min-h-screen">
-  <h1 class="text-2xl font-bold mb-4 text-gray-800">Weather in Kota Bharu</h1>
+<body class="p-5 bg-gray-100 min-h-screen">
+  <h1 class="text-2xl font-bold mb-4 text-gray-800 text-center">Live Weather Dashboard</h1>
 
-  <div id="weatherInfo" class="text-lg text-gray-700 mb-4"></div>
+  <div class="text-center mb-4">
+    <label for="citySelect" class="font-medium text-gray-700">Select City:</label>
+    <select id="citySelect" class="border border-gray-300 rounded px-3 py-1 ml-2">
+      <option value="Kuala Lumpur">Kuala Lumpur</option>
+      <option value="Johor Bahru">Johor Bahru</option>
+      <option value="George Town">George Town</option>
+      <option value="Kota Bharu">Kota Bharu</option>
+      <option value="Shah Alam">Shah Alam</option>
+    </select>
+  </div>
 
+  <div id="weatherData" class="text-center text-gray-700 mb-4"></div>
   <canvas id="weatherChart" class="bg-white p-4 rounded shadow-md"></canvas>
 
   <script src="weather.js"></script>
