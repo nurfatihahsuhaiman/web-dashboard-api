@@ -1,4 +1,4 @@
-const apiKey = "dc6cda385f1aef11b276a81c52573045"; // Your OpenWeatherMap API Key
+const apiKey = "34d2dfe2f79dca9ffc7bd7206070012c"; // OpenWeatherMap API key
 const city = "Kota Bharu";
 const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
@@ -10,7 +10,7 @@ fetch(url)
     const humidity = data.main.humidity;
     const windSpeed = data.wind.speed;
 
-    // Display weather info as text
+    // Show weather text
     document.getElementById("weatherInfo").innerHTML = `
       <p>Current Temperature: <strong>${temperature}°C</strong></p>
       <p>Condition: <strong>${condition}</strong></p>
@@ -18,7 +18,7 @@ fetch(url)
       <p>Wind Speed: <strong>${windSpeed} m/s</strong></p>
     `;
 
-    // Show temperature chart
+    // Show bar chart
     new Chart(document.getElementById("weatherChart"), {
       type: "bar",
       data: {
