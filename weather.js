@@ -2,7 +2,7 @@ const chartCanvas = document.getElementById("weatherChart");
 const citySelect = document.getElementById("citySelect");
 const weatherDataDiv = document.getElementById("weatherData");
 
-const apiKey = "YOUR_API_KEY"; // <-- Ganti dengan API key sebenar
+const apiKey = "34d2dfe2f79dca9ffc7bd7206070012c"; // <-- Ganti dengan API key sebenar
 let chart;
 
 function fetchWeather(city) {
