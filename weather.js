@@ -1,4 +1,4 @@
-const apiKey = "34d2dfe2f79dca9ffc7bd7206070012c"; // Your OpenWeatherMap API Key
+const apiKey = "dc6cda385f1aef11b276a81c52573045"; // Your OpenWeatherMap API Key
 const city = "Kota Bharu";
 const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
