@@ -1,47 +1,65 @@
-const apiKey = "34d2dfe2f79dca9ffc7bd7206070012c"; // OpenWeatherMap API key
-const city = "Kota Bharu";
-const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+const chartCanvas = document.getElementById("weatherChart");
+const citySelect = document.getElementById("citySelect");
+const weatherDataDiv = document.getElementById("weatherData");
 
-fetch(url)
-  .then(response => response.json())
-  .then(data => {
-    const temperature = data.main.temp;
-    const condition = data.weather[0].description;
-    const humidity = data.main.humidity;
-    const windSpeed = data.wind.speed;
+const apiKey = "YOUR_API_KEY"; // <-- Ganti dengan API key sebenar
+let chart;
 
-    // Show weather text
-    document.getElementById("weatherInfo").innerHTML = `
-      <p>Current Temperature: <strong>${temperature}°C</strong></p>
-      <p>Condition: <strong>${condition}</strong></p>
-      <p>Humidity: <strong>${humidity}%</strong></p>
-      <p>Wind Speed: <strong>${windSpeed} m/s</strong></p>
-    `;
+function fetchWeather(city) {
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
-    // Show bar chart
-    new Chart(document.getElementById("weatherChart"), {
-      type: "bar",
-      data: {
-        labels: ["Temperature (°C)"],
-        datasets: [{
-          label: "Current Temperature",
-          data: [temperature],
-          backgroundColor: "skyblue",
-          borderColor: "blue",
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true,
-            max: 50
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      const temp = data.main.temp;
+      const humidity = data.main.humidity;
+      const wind = data.wind.speed;
+      const weather = data.weather[0].description;
+
+      // Display text
+      weatherDataDiv.innerHTML = `
+        <p><strong>${city}</strong></p>
+        <p>Temperature: ${temp}°C</p>
+        <p>Humidity: ${humidity}%</p>
+        <p>Wind Speed: ${wind} m/s</p>
+        <p>Weather: ${weather}</p>
+      `;
+
+      // Destroy previous chart
+      if (chart) {
+        chart.destroy();
+      }
+
+      // Create chart
+      chart = new Chart(chartCanvas, {
+        type: "bar",
+        data: {
+          labels: ["Temp (°C)", "Humidity (%)", "Wind (m/s)"],
+          datasets: [{
+            label: `${city} Weather Data`,
+            data: [temp, humidity, wind],
+            backgroundColor: ["skyblue", "lightgreen", "orange"],
+            borderColor: ["blue", "green", "darkorange"],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: { beginAtZero: true }
           }
         }
-      }
+      });
+    })
+    .catch(error => {
+      console.error("Failed to fetch weather:", error);
+      weatherDataDiv.innerHTML = "<p class='text-red-500'>Failed to fetch weather data.</p>";
     });
-  })
-  .catch(error => {
-    console.error("Failed to fetch weather data:", error);
-    document.getElementById("weatherInfo").innerHTML = "<p class='text-red-500'>Failed to load weather data.</p>";
-  });
+}
+
+// Initial fetch
+fetchWeather(citySelect.value);
+
+// On city change
+citySelect.addEventListener("change", () => {
+  fetchWeather(citySelect.value);
+});
