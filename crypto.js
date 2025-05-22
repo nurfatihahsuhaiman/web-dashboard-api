@@ -1,42 +1,59 @@
-const url = "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana&vs_currencies=usd";
+const chartCanvas = document.getElementById("cryptoChart");
+const coinSelect = document.getElementById("coinSelect");
+const cryptoDataDiv = document.getElementById("cryptoData");
 
-fetch(url)
-  .then(response => response.json())
-  .then(data => {
-    const btc = data.bitcoin.usd;
-    const eth = data.ethereum.usd;
-    const sol = data.solana.usd;
+let chart; // Global chart variable
 
-    // Display prices as text
-    document.getElementById("cryptoData").innerHTML = `
-      <p>Bitcoin (BTC): <strong>$${btc}</strong></p>
-      <p>Ethereum (ETH): <strong>$${eth}</strong></p>
-      <p>Solana (SOL): <strong>$${sol}</strong></p>
-    `;
+function fetchAndDisplayCrypto(coin) {
+  const url = `https://api.coingecko.com/api/v3/simple/price?ids=${coin}&vs_currencies=usd`;
 
-    // Display chart
-    const chart = new Chart(document.getElementById("cryptoChart"), {
-      type: "bar",
-      data: {
-        labels: ["BTC", "ETH", "SOL"],
-        datasets: [{
-          label: "Current Price (USD)",
-          data: [btc, eth, sol],
-          backgroundColor: ["gold", "purple", "green"],
-          borderColor: ["orange", "blue", "darkgreen"],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: false
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      const price = data[coin].usd;
+
+      // Display text data
+      cryptoDataDiv.innerHTML = `
+        <p><strong>${coin.toUpperCase()}</strong>: $${price}</p>
+      `;
+
+      // If chart exists, destroy it first
+      if (chart) {
+        chart.destroy();
+      }
+
+      // Create new chart
+      chart = new Chart(chartCanvas, {
+        type: "bar",
+        data: {
+          labels: [coin.toUpperCase()],
+          datasets: [{
+            label: "Current Price (USD)",
+            data: [price],
+            backgroundColor: "skyblue",
+            borderColor: "blue",
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: false
+            }
           }
         }
-      }
+      });
+    })
+    .catch(error => {
+      console.error("Failed to fetch data:", error);
+      cryptoDataDiv.innerHTML = "<p class='text-red-500'>Failed to fetch data.</p>";
     });
-  })
-  .catch(error => {
-    console.error("Failed to fetch crypto data:", error);
-    document.getElementById("cryptoData").innerHTML = "<p class='text-red-500'>Failed to load crypto data.</p>";
-  });
+}
+
+// Initial load
+fetchAndDisplayCrypto(coinSelect.value);
+
+// Change coin on selection
+coinSelect.addEventListener("change", () => {
+  fetchAndDisplayCrypto(coinSelect.value);
+});
