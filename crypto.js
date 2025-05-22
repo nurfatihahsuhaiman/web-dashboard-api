@@ -7,20 +7,20 @@ fetch(url)
     const eth = data.ethereum.usd;
     const sol = data.solana.usd;
 
-    // Teks harga
+    // Display prices as text
     document.getElementById("cryptoData").innerHTML = `
       <p>Bitcoin (BTC): <strong>$${btc}</strong></p>
       <p>Ethereum (ETH): <strong>$${eth}</strong></p>
       <p>Solana (SOL): <strong>$${sol}</strong></p>
     `;
 
-    // Carta
+    // Display chart
     const chart = new Chart(document.getElementById("cryptoChart"), {
       type: "bar",
       data: {
         labels: ["BTC", "ETH", "SOL"],
         datasets: [{
-          label: "Harga Semasa (USD)",
+          label: "Current Price (USD)",
           data: [btc, eth, sol],
           backgroundColor: ["gold", "purple", "green"],
           borderColor: ["orange", "blue", "darkgreen"],
@@ -37,6 +37,6 @@ fetch(url)
     });
   })
   .catch(error => {
-    console.error("Gagal ambil data crypto:", error);
-    document.getElementById("cryptoData").innerHTML = "<p class='text-red-500'>Gagal ambil data crypto.</p>";
+    console.error("Failed to fetch crypto data:", error);
+    document.getElementById("cryptoData").innerHTML = "<p class='text-red-500'>Failed to load crypto data.</p>";
   });
