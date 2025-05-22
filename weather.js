@@ -1,35 +1,47 @@
-const apiKey = "34d2dfe2f79dca9ffc7bd7206070012c"; // From openweathermap.org
+const apiKey = "34d2dfe2f79dca9ffc7bd7206070012c"; // API Key from OpenWeatherMap
 const city = "Kota Bharu";
 const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
 fetch(url)
   .then(response => response.json())
   .then(data => {
-    const temp = data.main.temp;
-    const humidity = data.main.humidity;
+    const temperature = data.main.temp;
     const condition = data.weather[0].description;
+    const humidity = data.main.humidity;
+    const windSpeed = data.wind.speed;
 
-    // Display info
+    // Display weather information as text
     document.getElementById("weatherInfo").innerHTML = `
-      <strong>Temperature:</strong> ${temp} °C<br>
-      <strong>Humidity:</strong> ${humidity}%<br>
-      <strong>Condition:</strong> ${condition}
+      <p>Current Temperature: <strong>${temperature}°C</strong></p>
+      <p>Condition: <strong>${condition}</strong></p>
+      <p>Humidity: <strong>${humidity}%</strong></p>
+      <p>Wind Speed: <strong>${windSpeed} m/s</strong></p>
     `;
 
-    // Chart
-    new Chart(document.getElementById("weatherChart"), {
+    // Display temperature chart
+    const chart = new Chart(document.getElementById("weatherChart"), {
       type: "bar",
       data: {
-        labels: ["Temperature (°C)", "Humidity (%)"],
+        labels: ["Temperature (°C)"],
         datasets: [{
-          label: "Weather Data",
-          data: [temp, humidity],
-          backgroundColor: ["#60A5FA", "#34D399"]
+          label: "Current Temperature",
+          data: [temperature],
+          backgroundColor: "skyblue",
+          borderColor: "blue",
+          borderWidth: 1
         }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 50
+          }
+        }
       }
     });
   })
   .catch(error => {
-    console.error("Failed to fetch weather data:", error);
-    document.getElementById("weatherInfo").textContent = "Unable to load weather data.";
+    console.error("Failed to fetch data:", error);
+    document.getElementById("weatherInfo").innerHTML = "<p class='text-red-500'>Failed to load weather data.</p>";
   });
